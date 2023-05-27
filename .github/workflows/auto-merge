@@ -1,0 +1,38 @@
+name: Auto merge
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR conditions
+        if: github.ref == 'refs/heads/linux-amd64-default'
+        run: |
+          if [[ ${{ github.event.pull_request.head.repo.fork }} == 'false' ]]; then
+            echo "Merging..."
+          else
+            echo "This PR is from a fork, skipping..."
+            exit 78
+          fi
+
+      - name: Merge PR
+        if: github.ref == 'refs/heads/linux-amd64-default'
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.MERGE_BOT_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const prTitle = context.payload.pull_request.title;
+
+            github.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              commit_title: `Merge PR: ${prTitle}`,
+              merge_method: 'merge'
+            });
