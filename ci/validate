@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+default_branch=origin/linux-amd64-default
+added_index_patches=$(git diff --name-only $default_branch... -- patches | awk -F/ '{ print $1"/"$2 }' | uniq)
+
+for index_patch in $added_index_patches; do
+    echo "validating $index_patch"
+    sqlite3 ./ci/repository.db <$index_patch
+done
