@@ -1,0 +1,1 @@
+INSERT INTO repository (name, description, maintainer, kind, installed_size, license, v_major, v_minor, v_patch, v_tag, v_readable, index_timestamp) VALUES ("lzip", "Lossless data compressor based on the LZMA algorithm", "Lpm Core Maintainer <contact@onurozkan.dev>", "util", 123, "GPL-2.0-or-later", 1, 23, 0, "", "1.23.0", 1685271096);
