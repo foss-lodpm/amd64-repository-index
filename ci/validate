@@ -3,7 +3,7 @@
 set -e
 
 default_branch=origin/linux-amd64-default
-added_index_patches=$(git diff --name-only $default_branch... -- patches | awk -F/ '{ print $1"/"$2 }' | uniq)
+added_index_patches=$(git diff --diff-filter=ACMRTUXB --name-only $default_branch... -- patches | awk -F/ '{ print $1"/"$2 }' | uniq)
 
 for index_patch in $added_index_patches; do
     echo "validating $index_patch"
