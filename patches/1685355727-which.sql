@@ -1,0 +1,1 @@
+INSERT INTO repository (name, description, maintainer, kind, installed_size, license, v_major, v_minor, v_patch, v_tag, v_readable, index_timestamp) VALUES ("which", "GNU tool that displays where a particular program in your path is located", "Lpm Core Maintainer <contact@onurozkan.dev>", "base", 33, "GPL-3.0-or-later", 2, 21, 0, "", "2.21.0", 1685355727);
