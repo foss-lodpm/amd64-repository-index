@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS repository (
   description TEXT,
   maintainer TEXT NOT NULL,
   source_repository TEXT,
+  arch TEXT NOT_NULL,
   kind TEXT NOT_NULL,
   tags TEXT,
   installed_size INTEGER NOT_NULL,
@@ -13,5 +14,7 @@ CREATE TABLE IF NOT EXISTS repository (
   v_patch INTEGER NOT NULL,
   v_tag TEXT,
   v_readable TEXT NOT NULL,
+  mandatory_dependencies TEXT,
+  suggested_dependencies TEXT,
   index_timestamp BIGINT UNSIGNED NOT NULL
 );
