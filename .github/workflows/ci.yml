@@ -27,7 +27,7 @@ jobs:
           github.event.pull_request.user.login != 'lodos-ci' ||
           github.event.pull_request.head.repo.fork != 'false'
         run: |
-          echo "This PR is from a fork, skipping..."
+          echo "PR is not valid."
           exit 78
 
       - name: merge
