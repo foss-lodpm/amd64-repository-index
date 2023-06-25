@@ -23,15 +23,15 @@ jobs:
     steps:
       - name: Check PR conditions
         if: >
-          github.event.pull_request.base.ref != 'linux-amd64-default' ||
-          github.event.pull_request.user.login != 'lodos-ci' ||
+          github.event.pull_request.base.ref != linux-amd64-default ||
+          github.event.pull_request.user.login != lodos-ci ||
           github.event.pull_request.head.repo.fork != 'false'
         run: |
           echo "Target branch: ${{ github.event.pull_request.base.ref }}"
           echo "PR Author: ${{ github.event.pull_request.user.login }}"
           echo "Is PR fork: ${{ github.event.pull_request.head.repo.fork }}"
 
-          echo "\nPR is not valid."
+          echo "PR is not valid."
           exit 78
 
       - name: merge
