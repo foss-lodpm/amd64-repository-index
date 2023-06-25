@@ -23,9 +23,9 @@ jobs:
     steps:
       - name: Check PR conditions
         if: >
-          github.event.pull_request.base.ref != linux-amd64-default ||
-          github.event.pull_request.user.login != lodos-ci ||
-          github.event.pull_request.head.repo.fork != 'false'
+          github.event.pull_request.base.ref != 'linux-amd64-default' ||
+          github.event.pull_request.user.login != 'lodos-ci' ||
+          !github.event.pull_request.head.repo.fork
         run: |
           echo "Target branch: ${{ github.event.pull_request.base.ref }}"
           echo "PR Author: ${{ github.event.pull_request.user.login }}"
@@ -38,7 +38,7 @@ jobs:
         if: >
           github.event.pull_request.base.ref == 'linux-amd64-default' &&
           github.event.pull_request.user.login == 'lodos-ci' &&
-          github.event.pull_request.head.repo.fork == 'false'
+          github.event.pull_request.head.repo.fork
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.MERGE_BOT_TOKEN }}
