@@ -27,7 +27,11 @@ jobs:
           github.event.pull_request.user.login != 'lodos-ci' ||
           github.event.pull_request.head.repo.fork != 'false'
         run: |
-          echo "PR is not valid."
+          echo "Target branch: ${{ github.event.pull_request.base.ref }}"
+          echo "PR Author: ${{ github.event.pull_request.user.login }}"
+          echo "Is PR fork: ${{ github.event.pull_request.head.repo.fork }}"
+
+          echo "\nPR is not valid."
           exit 78
 
       - name: merge
