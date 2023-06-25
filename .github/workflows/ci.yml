@@ -8,21 +8,24 @@ on:
       - synchronize
 
 jobs:
-  merge:
+  validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR conditions
-        if: github.event.pull_request.base.ref == 'linux-amd64-default'
-        run: |
-          if [[ ${{ github.event.pull_request.head.repo.fork }} == 'false' ]]; then
-            echo "Merging..."
-          else
-            echo "This PR is from a fork, skipping..."
-            exit 78
-          fi
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Merge PR
-        if: github.event.pull_request.base.ref == 'linux-amd64-default'
+      - name: ci/validate
+        run: ./ci/validate
+  automerge:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: merge
+        if: >
+          github.event.pull_request.base.ref == 'linux-amd64-default' &&
+          github.event.pull_request.user.login == 'lodos-ci' &&
+          github.event.pull_request.head.repo.fork == 'false'
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.MERGE_BOT_TOKEN }}
